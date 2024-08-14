@@ -41,7 +41,7 @@ GROUP BY
 ORDER By 
 	`Vehicles on the road` DESC;
 
---What is the most popular Hybrid?
+--What are the most popular hybrid vehicles?
 SELECT 
      Model,
 	COUNT(*) `Vehicles on the road`
@@ -52,3 +52,14 @@ GROUP BY
 	Model
 ORDER By 
 	`Vehicles on the road` DESC;
+    
+--What county has the most vehicles?
+SELECT
+	County,
+    COUNT(*) `Vehicles on the road`
+FROM electric_vehicle_data 
+GROUP BY
+	County
+ORDER By 
+	`Vehicles on the road` DESC
+LIMIT 1;
