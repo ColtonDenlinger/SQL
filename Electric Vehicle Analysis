@@ -1,0 +1,54 @@
+--The data is sourced from the "Electric Vehicle Population Data" available on data.gov. This dataset is provided by the Washington State Department of Licensing (DOL). URL: https://catalog.data.gov/dataset/electric-vehicle-population-data--
+
+--What Models are eligable for Clean Alternative Fuel Vehicle?
+SELECT 
+    DISTINCT Model
+FROM electric_vehicle_data
+Where
+	`Clean Alternative Fuel Vehicle (CAFV) Eligibility` = 'Clean Alternative Fuel Vehicle Eligible';
+    
+--What Model has the most range?
+SELECT 
+	DISTINCT Model,
+    Make,
+    `Model Year`,
+    `Electric Range`
+FROM electric_vehicle_data
+ORDER BY 
+	`Electric Range` DESC
+LIMIT 1;
+    
+--What hybrid model has the longest electric range?
+SELECT 
+	DISTINCT Model,
+    Make,
+    `Model Year`,
+    `Electric Range`
+FROM electric_vehicle_data 
+WHERE
+	`Electric Vehicle Type` LIKE '%Hybrid%'
+ORDER BY 
+	`Electric Range` DESC
+LIMIT 1;
+
+--What Company has the most cars on the road?
+SELECT 
+	 Make,
+    COUNT(*) `Vehicles on the road`
+FROM electric_vehicle_data 
+GROUP BY 
+	Make
+ORDER By 
+	`Vehicles on the road` DESC;
+
+--What is the most popular Hybrid?
+SELECT 
+     Model,
+	COUNT(*) `Vehicles on the road`
+FROM electric_vehicle_data 
+WHERE
+	`Electric Vehicle Type` LIKE '%Hybrid%'
+GROUP BY 
+	Model
+ORDER By 
+	`Vehicles on the road` DESC;
