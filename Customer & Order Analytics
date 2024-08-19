@@ -1,0 +1,76 @@
+SELECT *
+FROM customers;
+
+--How many orders were placed in January?
+SELECT count(*)
+FROM JanSales
+WHERE 
+    LENGTH(orderID) = 6
+    AND orderid <> 'Order ID';
+
+--How many of those orders were for an iPhone?
+SELECT count(*)
+FROM JanSales
+WHERE 
+    LENGTH(orderID) = 6
+    AND orderid <> 'Order ID'
+    AND Product = 'iPhone';
+
+--Select the customer account numbers for all the orders that were placed in February.
+SELECT acctnum
+FROM FebSales Feb
+LEFT JOIN customers cus
+ON Feb.orderID = cus.order_id
+WHERE 
+    LENGTH(orderID) = 6
+    AND orderid <> 'Order ID';
+
+--Which product was the cheapest one sold in January, and what was the price?
+SELECT DISTINCT Product,
+min(price)
+FROM JanSales
+GROUP BY
+    Product;
+ 
+--What is the total revenue for each product sold in January? 
+
+SELECT ROUND(SUM(Quantity)*price,2) AS Revenue,
+Product
+FROM JanSales
+WHERE Product <> ''
+GROUP BY Product;
+
+--Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+
+SELECT product,
+sum(quantity),
+sum(Quantity)* price AS revenue
+FROM FebSales
+WHERE
+    location = '548 Lincoln St, Seattle, WA 98101'
+GROUP BY
+    product;
+
+
+
+
+--How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
+
+SELECT count(distinct cus.acctnum),
+avg(quantity*Price)
+FROM FebSales Feb
+LEFT JOIN customers cus
+ON Feb.orderID = cus.order_id
+WHERE
+    Feb.quantity > 2
+    AND LENGTH(orderID) = 6
+    AND orderid <> 'Order ID'
+
+--List all the products sold in Los Angeles in February, and include how many of each were sold.
+SELECT
+    DISTINCT Product,
+    sum(quantity)
+FROM FebSales
+WHERE 
+    Location LIKE'%Los Angeles%'
+GROUP By Product
