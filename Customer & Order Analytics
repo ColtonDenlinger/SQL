@@ -2,23 +2,29 @@ SELECT *
 FROM customers;
 
 --How many orders were placed in January?
-SELECT count(*)
-FROM JanSales
+SELECT 
+    count(*)
+FROM 
+    JanSales
 WHERE 
     LENGTH(orderID) = 6
     AND orderid <> 'Order ID';
 
 --How many of those orders were for an iPhone?
-SELECT count(*)
-FROM JanSales
+SELECT 
+    count(*)
+FROM 
+    JanSales
 WHERE 
     LENGTH(orderID) = 6
     AND orderid <> 'Order ID'
     AND Product = 'iPhone';
 
 --Select the customer account numbers for all the orders that were placed in February.
-SELECT acctnum
-FROM FebSales Feb
+SELECT 
+    acctnum
+FROM 
+    FebSales Feb
 LEFT JOIN customers cus
 ON Feb.orderID = cus.order_id
 WHERE 
@@ -26,9 +32,11 @@ WHERE
     AND orderid <> 'Order ID';
 
 --Which product was the cheapest one sold in January, and what was the price?
-SELECT DISTINCT Product,
-min(price)
-FROM JanSales
+SELECT 
+    DISTINCT Product,
+    min(price)
+FROM 
+    JanSales
 GROUP BY
     Product;
  
@@ -42,10 +50,12 @@ GROUP BY Product;
 
 --Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
 
-SELECT product,
-sum(quantity),
-sum(Quantity)* price AS revenue
-FROM FebSales
+SELECT 
+    product,
+    sum(quantity),
+    sum(Quantity)* price AS revenue
+FROM 
+    FebSales
 WHERE
     location = '548 Lincoln St, Seattle, WA 98101'
 GROUP BY
@@ -56,9 +66,11 @@ GROUP BY
 
 --How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
 
-SELECT count(distinct cus.acctnum),
-avg(quantity*Price)
-FROM FebSales Feb
+SELECT 
+    count(distinct cus.acctnum),
+    avg(quantity*Price)
+FROM 
+    FebSales Feb
 LEFT JOIN customers cus
 ON Feb.orderID = cus.order_id
 WHERE
@@ -70,7 +82,8 @@ WHERE
 SELECT
     DISTINCT Product,
     sum(quantity)
-FROM FebSales
+FROM 
+    FebSales
 WHERE 
     Location LIKE'%Los Angeles%'
 GROUP By 
@@ -80,8 +93,8 @@ GROUP By
 --Which locations in New York received at least 3 orders in January, and how many orders did they each receive? (Hint: use HAVING).
 
 SELECT
-DISTINCT Location,
-COUNT(orderID) Orders
+    DISTINCT Location,
+    COUNT(orderID) Orders
 FROM
     JanSales
 WHERE
@@ -109,8 +122,9 @@ GROUP BY
 --What was the average amount spent per account in February? (Hints: For this question, we want the average amount spent / number of accounts, not the amount spent by each account. To multiply, you can use the * symbol, and to divide, you can use the / symbol.)
 
 SELECT 
- sum(quantity*price)/count(cust.acctnum)
-FROM FebSales Feb
+    sum(quantity*price)/count(cust.acctnum)
+FROM 
+    FebSales Feb
 LEFT JOIN Customers Cust
 ON Feb.orderID = Cust.order_id
 WHERE
@@ -121,8 +135,9 @@ WHERE
 --What was the average quantity of products purchased per account in February? (Hint: just like question 3, we want the overall average, not the average for each account individually).
 
 SELECT 
- sum(quantity)/count(cust.acctnum)
-FROM FebSales Feb
+    sum(quantity)/count(cust.acctnum)
+FROM 
+    FebSales Feb
 LEFT JOIN Customers Cust
 ON Feb.orderID = Cust.order_id
 WHERE
@@ -134,7 +149,8 @@ WHERE
 SELECT
     Product,
     SUM(quantity*price) Revenue
-FROM FebSales
+FROM 
+    FebSales
 GROUP BY 
     Product
 ORDER BY
