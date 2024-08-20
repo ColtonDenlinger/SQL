@@ -1,0 +1,82 @@
+DATA from https://www.kaggle.com/datasets/rkiattisak/sports-car-prices-dataset/data
+
+--What are the most powerful cars?
+
+SELECT
+	CarMake,
+    CarModel,
+    Horsepower,
+    `Torque(lb-ft)`
+FROM
+	Sport_car
+Order BY
+	Horsepower DESC
+LIMIT 10
+;
+
+--What car accelerates fastest?
+
+SELECT
+	CarMake,
+    CarModel,
+    `0-60MPHTime(seconds)`
+FROM
+	Sport_car
+Order BY
+	`0-60MPHTime(seconds)` ASC
+LIMIT 1
+;
+
+--What makes have the fastest average 0-60 times?
+
+SELECT
+	CarMake,
+	ROUND(AVG(`0-60MPHTime(seconds)`),2) 'Average_0-60'
+FROM
+	Sport_car
+GROUP BY 
+	CarMake
+ORDER BY 
+	ROUND(AVG(`0-60MPHTime(seconds)`),2) ASC
+LIMIT 10
+;
+
+--How does engine size relate to 0-60 times?
+SELECT 
+    `EngineSize(L)`,
+    ROUND(AVG(`0-60MPHTime(seconds)`),2) 'Average_0-60'
+FROM
+	Sport_car
+GROUP BY
+	`EngineSize(L)`
+ORDER By
+	`EngineSize(L)`
+;
+
+--What is the acceleration in each engine size range?
+
+SELECT 
+    `EngineSize(L)`,
+    MIN(`0-60MPHTime(seconds)`) fastest_accel
+FROM
+	Sport_car
+GROUP BY
+	`EngineSize(L)`
+ORDER By
+	`EngineSize(L)`
+;
+
+--I am on a budget but need a fast car, what is the cheapest car I can get with over 500 horsepower?
+SELECT 
+	CarMake,
+	CarModel,
+    Horsepower,
+    `Price(in USD)`
+FROM
+	Sport_car
+WHERE
+	Horsepower >=500
+Order By 
+	`Price(in USD)` DESC
+LIMIT 1
+;
