@@ -8,7 +8,8 @@ FROM
     JanSales
 WHERE 
     LENGTH(orderID) = 6
-    AND orderid <> 'Order ID';
+    AND orderid <> 'Order ID'
+;
 
 --How many of those orders were for an iPhone?
 SELECT 
@@ -18,7 +19,8 @@ FROM
 WHERE 
     LENGTH(orderID) = 6
     AND orderid <> 'Order ID'
-    AND Product = 'iPhone';
+    AND Product = 'iPhone'
+;
 
 --Select the customer account numbers for all the orders that were placed in February.
 SELECT 
@@ -29,7 +31,8 @@ LEFT JOIN customers cus
 ON Feb.orderID = cus.order_id
 WHERE 
     LENGTH(orderID) = 6
-    AND orderid <> 'Order ID';
+    AND orderid <> 'Order ID'
+;
 
 --Which product was the cheapest one sold in January, and what was the price?
 SELECT 
@@ -38,7 +41,8 @@ SELECT
 FROM 
     JanSales
 GROUP BY
-    Product;
+    Product
+;
  
 --What is the total revenue for each product sold in January? 
 
@@ -46,7 +50,8 @@ SELECT ROUND(SUM(Quantity)*price,2) AS Revenue,
 Product
 FROM JanSales
 WHERE Product <> ''
-GROUP BY Product;
+GROUP BY Product
+;
 
 --Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
 
@@ -59,10 +64,8 @@ FROM
 WHERE
     location = '548 Lincoln St, Seattle, WA 98101'
 GROUP BY
-    product;
-
-
-
+    product
+;
 
 --How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
 
@@ -77,6 +80,7 @@ WHERE
     Feb.quantity > 2
     AND LENGTH(orderID) = 6
     AND orderid <> 'Order ID'
+;
 
 --List all the products sold in Los Angeles in February, and include how many of each were sold.
 SELECT
@@ -90,7 +94,7 @@ GROUP By
     Product
 ;
 
---Which locations in New York received at least 3 orders in January, and how many orders did they each receive? (Hint: use HAVING).
+--Which locations in New York received at least 3 orders in January, and how many orders did they each receive? 
 
 SELECT
     DISTINCT Location,
@@ -119,7 +123,7 @@ GROUP BY
     Product
 ;    
 
---What was the average amount spent per account in February? (Hints: For this question, we want the average amount spent / number of accounts, not the amount spent by each account. To multiply, you can use the * symbol, and to divide, you can use the / symbol.)
+--What was the average amount spent per account in February? 
 
 SELECT 
     sum(quantity*price)/count(cust.acctnum)
@@ -132,7 +136,7 @@ WHERE
     AND orderID <> 'Order ID'
 ;
 
---What was the average quantity of products purchased per account in February? (Hint: just like question 3, we want the overall average, not the average for each account individually).
+--What was the average quantity of products purchased per account in February? 
 
 SELECT 
     sum(quantity)/count(cust.acctnum)
