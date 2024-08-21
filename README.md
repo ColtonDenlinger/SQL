@@ -1,1 +1,1 @@
-Hello, welcome to my SQL repository. The projects listed here are meant to showcase my skills as a data anaylst. I will continue adding to this portfolio overtime as I build up more and more projects.
+Hello, welcome to my SQL repository. The projects listed here are meant to showcase my skills as a data anaylst. I will continue adding to this portfolio over time as I build up more and more projects.
